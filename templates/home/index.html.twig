@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Smarx Astuces{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    
+    
+       <div id="root">
+        
+       </div>
+       <center>
+       <div class="bt" style="margin-top:5px; display:none;">
+        <a href="{{path('inscription')}}" class="col-md-6 btn btn-lg ripple-infinite btn-round btn-primary">
+         <div>
+          <span>Inscription <span class="fa fa-user-plus"></span></span>
+        </div>
+       </a>
+       
+     </div>
+
+     <div class="bt" style="margin-top:5px; display:none;">
+        <a href="{{path('partie')}}" class="col-md-6 btn btn-lg ripple-infinite btn-round btn-success">
+         <div>
+          <span>Connexion <span class="fa fa-sign-in"></span></span>
+        </div>
+       </a>
+       
+     </div>
+    
+     </center>
+     <br><br><br><br>
+    <style>
+        body{
+            background-image: url("{{asset('img/motivate-yourself.jpg')}}");
+            background-attachment: fixed;
+            background-size: cover;
+           
+        }
+        #slid{
+            margin-bottom: 10%;
+        }
+    </style>
+</div>
+<br><br><br><br><br><br><br><br>
+<script>
+    
+</script>
+
+<script src="{{asset('js/home/index.js')}}"></script>
+{% endblock %}

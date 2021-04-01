@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="container">
+
+<div class="col-md-12 " style="background:black; opacity:0.9; margin-bottom:5%;">
+    <div class="col-md-12 panel-heading">
+      <h4>You account <span class="fa fa-user"></span></h4>
+    </div>
+    
+    <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+    <div class="col-md-12">
+<form method="post" class="cmxform" id="signupForm">
+    <div class="col-md-6">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    
+    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+        <input type="text" value="{{ last_username }}" class="form-text" id="nom" name="username" id="inputUsername" required>
+        <span class="bar"></span>
+        <label>Username</label>
+      </div>
+    
+    
+    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+        <input type="password" name="password" class="form-text" id="inputPassword" required>
+        <span class="bar"></span>
+        <label>Password</label>
+      </div>
+    
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+
+    </div>
+</div>
+    </div>
+</div>
+
+</form>
+
+<style>
+    body{
+        background-image: url("{{asset('img/motivate-yourself.jpg')}}");
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+</div>
+{% endblock %}

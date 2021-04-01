@@ -1,0 +1,206 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Creer un nouveau cours{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <center>
+            <div id="canvast">
+                <div class="col-md-12 " style="background:black; opacity:0.9; margin-bottom:5%;">
+                    <div class="col-md-12 panel-heading">
+                      <h4>Creer un nouveau devoir pour un langage  <span class="fa fa-user"></span></h4>
+                    </div>
+                   
+                    <div class="col-md-12 panel-body" style="padding-bottom:30px;">
+                    <div class="col-md-12">
+                        {% if isSend == true %}
+                        <br>
+                            <div class="alert alert-success">
+                                Le Devoir est creer avec success <span class="fa fa-check"></span>
+                            </div>
+                        {% endif %}
+                <form action="{{path('save_exo')}}" method="post">
+                    
+                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <select class="form-text" name="langageId" id="inputUsername" required>
+                            <option value="indefinir">----</option>
+                           
+                            {% for lang in langages %}
+                           
+                            
+                                <option value="{{lang.id}}">{{lang.nom}}</option>
+                        
+                            {% endfor %}
+                        
+                        </select>
+                        <span class="bar"></span>
+                             
+                        <label>Langage</label>
+
+                        
+                      </div>
+    
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="titre" name="titre" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>titre de l'exo</label>
+                      </div>
+                   
+                      
+                      <h3 class="alert alert-warning">Question reponse</h3>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q1" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 1</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r1" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 1</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q2" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 2</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r2" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 2</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q3" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 3</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r3" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 3</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q4" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 4</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r4" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 4</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q5" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 5</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r5" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 5</label>
+                      </div>
+
+                      <br><br>
+
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q6" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 6</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r6" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 6</label>
+                      </div>
+
+                      <br><br>
+
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q7" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 7</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r7" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 7</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q8" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 8</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r8" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 8</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q9" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 9</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r9" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 9</label>
+                      </div>
+
+                      <br><br>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="q10" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>Exercice 10</label>
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <input type="text" class="form-text" id="nom" name="r10" id="inputUsername" required>
+                        <span class="bar"></span>
+                        <label>solution 10</label>
+                      </div>
+                   
+
+                      <br>
+                      <button type="submit" class="btn btn-primary btn-lg">Enregistre <span class="fa fa-save"></span></button>
+                </form>
+
+                </div>
+                </div>
+                </div>
+                
+            </div>
+        </center>
+    </div>
+
+{% endblock %}
