@@ -269,9 +269,14 @@ class AdminController extends AbstractController
         $repository = $this -> getDoctrine() -> getRepository(ContenueExo::class);
         $exos = $repository -> findAll();
 
+        $repository = $this -> getDoctrine() -> getRepository(Langages::class);
+        $langages = $repository -> findAll();
+
+
         return $this->render('admin/partie_form.html.twig',[
             'exos'=>$exos,
             'isSend'=>$isSend,
+            'langages' => $langages,
         ]);
 
     }
@@ -280,6 +285,7 @@ class AdminController extends AbstractController
      * @Route("/save_partie",name="save_partie")
      */
     public function save_partie(Request $request){
+        $langage_id = $request->request->get('langageId');
         $nom = $request->request->get('titre');
         $description = $request->request->get('description');
         $exo_id1 = $request->request->get('exoId1');
@@ -292,6 +298,7 @@ class AdminController extends AbstractController
         $partie = new Parties();
 
         $partie -> setNom($nom);
+        $partie -> setLangageId($langage_id);
         $partie -> setDescrition($description);
         $partie -> setExo1Id($exo_id1);
         $partie -> setExo2Id($exo_id2);

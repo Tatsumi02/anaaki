@@ -94,7 +94,6 @@ class HomeController extends AbstractController
         $repository3 = $this -> getDoctrine() -> getRepository(Langages::class);
         $langages = $repository3 -> findAll();
 
-        // if ($request->isXmlHttpRequest() || $request->query->get('showJson')==1) {
               $jsonData = array();
                      $idx=0;
 
@@ -108,9 +107,7 @@ class HomeController extends AbstractController
          }
     
         return new JsonResponse($jsonData);
-        // }else{
-
-        // }
+       
 }
 
 /**
@@ -173,9 +170,21 @@ public function initer(Request $request,UserAuthenticator $authenticator, GuardA
      * @Route("/progression", name="progression")
      */
     public function progression(Request $request){
+        
+        $lang = $request->get('langage');
 
-        return new Response('votre langage est <b>'.$request->get('langage'));
+        $repository3 = $this -> getDoctrine() -> getRepository(Langages::class);
+        $langages = $repository3 -> findBy(['nom'=>$lang]);
+        $langage_id = 0;
+        foreach($langages as $lan){
+            $langage_id = $lan->getId();
+        }
+
+
+        return $this->redirectToRoute('gaming',['lang'=>$lang,'L_id'=>$langage_id]);
+       
     }
+
 
 
 

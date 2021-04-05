@@ -62,6 +62,11 @@ class Parties
      */
     private $duree;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $langage_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +176,18 @@ class Parties
     public function setDuree(int $duree): self
     {
         $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getLangageId(): ?int
+    {
+        return $this->langage_id;
+    }
+
+    public function setLangageId(int $langage_id): self
+    {
+        $this->langage_id = $langage_id;
 
         return $this;
     }

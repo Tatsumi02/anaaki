@@ -1,0 +1,51 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Anaaki | {{langage}} game{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    
+    
+       <div id="root">
+        
+       </div>
+      
+       <div id="ajax_load"  style="display: none;" >
+        <center>
+            <img src="{{asset('img/ajax.gif')}}" alt="">
+            <br><br>
+            <div style="color:white">Chargement en cours...</div>
+        </center>
+     </div>
+
+     <br><br><br><br>
+    <style>
+        body{
+            background-image: url("{{asset('img/motivate-yourself.jpg')}}");
+            background-attachment: fixed;
+            background-size: cover;
+           
+        }
+        #langes{
+            background: white;
+            color: white;
+            padding: 2%;
+            margin: 2%;
+            
+            word-wrap: break-word;
+        }
+        
+    </style>
+</div>
+<br><br><br><br><br><br><br><br>
+<script>
+    
+</script>
+<input type="text" value="{{path('parties_liste')}}" id="path_liste_parties" style="display: none;">
+<input type="text" value="{{langage_id}}" id="langage_id" style="display: none;">
+<input type="text" value="{{langage}}" id="lange" style="display: none;">
+<input type="text" value="{{path('load_playing')}}" id="path_play" style="display: none;">
+
+<script src="{{asset('js/partie/gaming.js')}}"></script>
+{% endblock %}

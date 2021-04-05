@@ -29,6 +29,25 @@
                       </div>
 
                       <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                        <select class="form-text" name="langageId" id="inputUsername" required>
+                            <option value="indefinir">----</option>
+                           
+                            {% for lang in langages %}
+                           
+                            
+                                <option value="{{lang.id}}">{{lang.nom}}</option>
+                        
+                            {% endfor %}
+                        
+                        </select>
+                        <span class="bar"></span>
+                             
+                        <label>Langage de la partie</label>
+
+                        
+                      </div>
+
+                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
                         <textarea name="description" id="" class="form-text" cols="30" rows="10"></textarea>
                         <span class="bar"></span>
                         <label>Description de la partie</label>
