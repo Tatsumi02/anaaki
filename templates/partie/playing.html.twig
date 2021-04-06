@@ -39,6 +39,12 @@
             
             word-wrap: break-word;
         }
+        #content_q{
+            background-color: black;
+            color: white;
+            opacity: 0.9;
+            padding: 2%;
+        }
         
     </style>
 </div>
@@ -52,6 +58,9 @@
 <input type="text" name="" id="duree" value="{{duree}}" style="display: none;">
 <input type="text" name="" id="curent_user" value="{{app.user.nom}} {{app.user.prenom}}" style="display: none;" >
 <input type="text" name="" id="path_exo1" value="{{path('load_partie1')}}" style="display:none;">
+<input type="text" name="" id="langue" value="{{langage}}" style="display: none;">
+<input type="text" name="" id="ajax" value="{{asset('img/ajax.gif')}}" style="display: none;">
+
 
 <script src="{{asset('js/partie/playing.js')}}"></script>
 {% endblock %}

@@ -1,4 +1,22 @@
 $(()=>{
+
+    // initialisons le state
+    let state = {
+        point: 0,
+        point_dispo: 5,
+        epreuve:0
+    }
+
+    // creons une fonction de verification des reponses fournir
+    function verifieur(reponse,reponse_fournir){
+        //on a deux parametre. ou nous allons chercher la reponse dans la question
+       let match = new RegExp(reponse,'gi')
+        if (match.test(reponse_fournir)){
+            return 1
+        }else{
+            return match.test(reponse_fournir)
+        }
+    }
     
     // on va afficher le chargement
     $('#ajax_load').css('display','block');
@@ -10,11 +28,11 @@ $(()=>{
     // recuperons l'utilisateur en cours 
     const curent_user = $('#curent_user').val()
 
-    //  element a affichecher...
+    //  les elements a affichecher...
     const element =  '<div class="" pull-right>'+
     '<div class="alert alert-primary alert-border alert-dismissible fade in" role="alert">'+
         '<h2>'+
-        '<h2> votre partie est lancer et en cours. bonne chance <b>'+curent_user+'</b>  </h2>'+
+        '<h2> Test d\'évaluation en '+$('#langue').val()+'. bonne chance <b>'+curent_user+'</b>  </h2>'+
             '<button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
         '</h2>'+
         '<h4> Vous devez passer tout les 5 étapes a tour de rôle. Vous pouvez toujours a tout moment consulter le cours pour reviser  </h4>'+
@@ -22,6 +40,18 @@ $(()=>{
         '</p>'+
         '</div>'+
         '</div>'
+
+        const element2 =  '<div class="" pull-right>'+
+        '<div class="alert alert-danger alert-border alert-dismissible fade in" role="alert">'+
+            '<h2>'+
+            '<h2> <b> TIME OUT</b>: Echec épreuve  </h2>'+
+                '<button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
+            '</h2>'+
+            '<h4> Vous avez laissé le temps vous rattraper.<b>'+curent_user+'</b>, Si vous êtes bloqué, vous pouvez toujours consulter le cours avant de revenir  </h4>'+
+            '</p>'+
+            '</div>'+
+            '</div>'
+    // fin element a afficher
 
      // faisons une requetes ajax pour recuperer les partie qui existent en fonction du langage choisir par le joueur
      $.ajax({
@@ -33,6 +63,8 @@ $(()=>{
      success: function(data) {
         var e = '<div></div>';
         $('#root').html(element).hide().show('slow')
+
+        let epreve_num = state.epreuve+=1 //la nous precisons que nous passons a la premiere epreuve
 
         for(i=0; i<=data.length; i++){
              langages = data[i];
@@ -59,6 +91,7 @@ $(()=>{
         timeout: 30000,
      success: function(data) {
         var e = '<div></div>';
+        
         $('#root_exo').html('').hide().show('slow')
         for(i=0; i<=data.length; i++){
              langage = data[i];
@@ -69,11 +102,96 @@ $(()=>{
             //  on recupere le path de chargement pour la page de progression
             const path_playing = $('#path_play').val();
 
+            // on affiche le quantieme epreuve
+            $('.epreuve').html(epreve_num)
+            
              $('#root_exo').append(
-                 '<input type="text" class="form-control" placeholder="'+langage['exo1']+'">'+
-                 '<br><br>'+
-                 '<input type="text" class="form-control" placeholder="'+langage['exo2']+'">'
+              '<div id="content_q" class="container">'+
+
+
+                '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q1" name="password2" required>'+
+                '<span class="bar1">'+langage['rep1']+'</span>'+
+                '<label>'+langage['exo1']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q2" name="password2" required>'+
+                '<span class="bar2"></span>'+
+                '<label>'+langage['exo2']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q3" name="password2" required>'+
+                '<span class="bar3"></span>'+
+                '<label>'+langage['exo3']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q4" name="password2" required>'+
+                '<span class="bar4"></span>'+
+                '<label>'+langage['exo4']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q5" name="password2" required>'+
+                '<span class="bar5"></span>'+
+                '<label>'+langage['exo5']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q6" name="password2" required>'+
+                '<span class="bar6"></span>'+
+                '<label>'+langage['exo6']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q7" name="password2" required>'+
+                '<span class="bar7"></span>'+
+                '<label>'+langage['exo7']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q8" name="password2" required>'+
+                '<span class="bar8"></span>'+
+                '<label>'+langage['exo8']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q9" name="password2" required>'+
+                '<span class="bar9"></span>'+
+                '<label>'+langage['exo9']+'</label>'+
+               '</div>'+
+
+               '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
+                '<input type="text" class="form-text" id="q10" name="password2" required>'+
+                '<span class="bar10"></span>'+
+                '<label>'+langage['exo10']+'</label>'+
+               '</div>'+
+
+               '<button id="validation" class="btn btn-primary">Valider <span class="fa fa-check"></span></button>'+
+            
+              '</div>'
+
              ).hide().show('slow');
+
+             const rep1 = langage['rep1']
+              // recuperons la solution de l'etudiant
+              const rep1_fournir = $('#q1').val() 
+
+              
+
+             //Entrons dans les evenements
+             $('#validation').click(()=>{  
+            
+               //verifions la validiter de la reponse
+                 if(verifieur(rep1,rep1_fournir) === 1){ 
+                   alert('question1 trouver') 
+                 }else{
+                     alert(verifieur(rep1,rep1_fournir))
+                 }
+             })
+            
 
         }
     },
@@ -144,7 +262,12 @@ $(()=>{
         
         
 
-        if(temps == 0) clearInterval(compteur);
+        if(temps == 0){ // si le temps termine
+             clearInterval(compteur); //on arrete de compter
+
+             $('#root').html(element2).hide().show('slow') // on afficher le message d'echec
+             $('#root_exo').html('').hide().show('slow') //on retire la copie
+        }
 
     },1000);
 

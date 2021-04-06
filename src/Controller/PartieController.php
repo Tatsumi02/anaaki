@@ -139,10 +139,28 @@ class PartieController extends AbstractController
              foreach($parties as $com){
                  $temp = array(
                         'id' => $com -> getId(),
-                         'exo1' => $com->getExo1(),
+                        'exo1' => $com->getExo1(),
                         'rep1' => $com -> getRep1(),
                         'exo2' => $com -> getExo2(),
+                        'rep2' => $com -> getRep2(),
+                        'exo3' => $com -> getExo3(),
+                        'rep3' => $com -> getRep3(),
+                        'exo4' => $com -> getExo4(),
+                        'rep4' => $com -> getRep4(),
+                        'exo5' => $com -> getExo5(),
+                        'rep5' => $com -> getRep5(),
+                        'exo6' => $com -> getExo6(),
+                        'rep6' => $com -> getRep6(),
+                        'exo7' => $com -> getExo7(),
+                        'rep7' => $com -> getRep7(),
+                        'exo8' => $com -> getExo8(),
+                        'rep8' => $com -> getRep8(),
+                        'exo9' => $com -> getExo9(),
+                        'rep9' => $com -> getRep9(),
+                        'exo10' => $com -> getExo10(),
+                        'rep10' => $com -> getRep10(),
                         
+
                      );
               $jsonData[$idx++] = $temp;
          }
