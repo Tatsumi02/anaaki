@@ -1,12 +1,19 @@
+
 $(()=>{
 
     // initialisons le state
     let state = {
         point: 0,
-        point_dispo: 5,
-        epreuve:0
+        epreuve:0,
+        reusit: 0,
+        niv: 1
+
     }
 
+    let part_id = 0 ;
+    let niv_id = 0
+
+    
     // creons une fonction de verification des reponses fournir
     function verifieur(reponse,reponse_fournir){
         //on a deux parametre. ou nous allons chercher la reponse dans la question
@@ -51,6 +58,17 @@ $(()=>{
             '</p>'+
             '</div>'+
             '</div>'
+
+        const element3 =  '<div class="" pull-right>'+
+            '<div class="alert alert-danger alert-border alert-dismissible fade in" role="alert">'+
+                '<h2>'+
+                '<h2> <b> MOVAISE NOTE</b>: Echec épreuve  </h2>'+
+                    '<button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
+                '</h2>'+
+                '<h4> Vous n\'avez pas valider l\'epreuve.<b>'+curent_user+'</b>, vous devez avoir 10/10 pour passer a la prochaine epreuve.<br /> Si vous êtes bloqué, vous pouvez toujours consulter le cours avant de revenir <br /><hr /> <a href="" class="btn btn-primary btn-lg" id="reload">Relancer l\'epreuve</a>  </h4>'+
+                '</p>'+
+                '</div>'+
+                '</div>'
     // fin element a afficher
 
      // faisons une requetes ajax pour recuperer les partie qui existent en fonction du langage choisir par le joueur
@@ -68,6 +86,9 @@ $(()=>{
 
         for(i=0; i<=data.length; i++){
              langages = data[i];
+
+            //  on recupere l'id de la partie
+             part_id = langages['id'];
 
              //on cache l'ajax loader
              $('#ajax_load').css('display','none')
@@ -96,9 +117,12 @@ $(()=>{
         for(i=0; i<=data.length; i++){
              langage = data[i];
 
+            
              //on cache l'ajax loader
              $('#ajax_load').css('display','none')
 
+             //recuperon l'id du niveau
+                let niv_id = langage['id'];
             //  on recupere le path de chargement pour la page de progression
             const path_playing = $('#path_play').val();
 
@@ -117,7 +141,7 @@ $(()=>{
 
                '<div class="form-group form-animate-text" style="margin-top:40px !important;">'+
                 '<input type="text" class="form-text" id="q2" name="password2" required>'+
-                '<span class="bar2"></span>'+
+                '<span class="bar2">'+langage['rep2']+'</span>'+
                 '<label>'+langage['exo2']+'</label>'+
                '</div>'+
 
@@ -176,20 +200,243 @@ $(()=>{
              ).hide().show('slow');
 
              const rep1 = langage['rep1']
+             const rep2 = langage['rep2']
+             const rep3 = langage['rep3']
+             const rep4 = langage['rep4']
+             const rep5 = langage['rep5']
+             const rep6 = langage['rep6']
+             const rep7 = langage['rep7']
+             const rep8 = langage['rep8']
+             const rep9 = langage['rep9']
+             const rep10 = langage['rep10']
+             
               // recuperons la solution de l'etudiant
               const rep1_fournir = $('#q1').val() 
 
-              
 
              //Entrons dans les evenements
              $('#validation').click(()=>{  
-            
+                let note = 0 
                //verifions la validiter de la reponse
-                 if(verifieur(rep1,rep1_fournir) === 1){ 
-                   alert('question1 trouver') 
-                 }else{
-                     alert(verifieur(rep1,rep1_fournir))
-                 }
+               // verification 1     
+                if( verifieur(rep1,$('#q1').val()) ){
+                    // on affiche le message de success
+                    $('.bar1').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                    
+                     note = state.point += 1
+                    
+                }else{
+                    $('.bar1').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    
+                }
+
+                // verification 2     
+                if( verifieur(rep2,$('#q2').val()) ){
+                    // on affiche le message de success
+                    $('.bar2').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+                }else{
+                    $('.bar2').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    note -= 1
+                }
+
+                 // verification 3   
+                 if( verifieur(rep3,$('#q3').val()) ){
+                    // on affiche le message de success
+                    $('.bar3').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+                }else{
+                    $('.bar3').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    
+                }
+
+                 // verification 4
+                 if( verifieur(rep4,$('#q4').val()) ){
+                    // on affiche le message de success
+                    $('.bar4').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+
+                }else{
+                    $('.bar4').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    
+                }
+
+                 // verification 5  
+                 if( verifieur(rep5,$('#q5').val()) ){
+                    // on affiche le message de success
+                    $('.bar5').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                   
+                }else{
+                    $('.bar5').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    
+                }
+
+                 // verification 6   
+                 if( verifieur(rep6,$('#q6').val()) ){
+                    // on affiche le message de success
+                    $('.bar6').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+                }else{
+                    $('.bar6').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    
+                }
+
+                 // verification 7  
+                 if( verifieur(rep7,$('#q7').val()) ){
+                    // on affiche le message de success
+                    $('.bar7').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+                }else{
+                    $('.bar7').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                
+                }
+
+                 // verification 8    
+                 if( verifieur(rep8,$('#q8').val()) ){
+                    // on affiche le message de success
+                    $('.bar8').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+                }else{
+                    $('.bar8').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                    
+                }
+
+                 // verification 9  
+                 if( verifieur(rep9,$('#q9').val()) ){
+                    // on affiche le message de success
+                    $('.bar9').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                    note = state.point += 1 
+                   
+                }else{
+                    $('.bar9').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+        
+                }
+
+                 // verification 10    
+                 if( verifieur(rep10,$('#q10').val()) ){
+                    // on affiche le message de success
+                    $('.bar10').html('Bravo, vous avez trouvé').css('color','lime').hide().show('slow')
+                    // on ajoute 1 sur les point
+                     note = state.point += 1 
+                    
+
+                }else{
+                    $('.bar10').html('Non vous n\'avez pas trouver').css('color','red').hide().show('slow')
+                
+                }
+
+
+                //gerons la note si la partie n'est pas valider
+                if(note < 10 && note > 0){
+                    $('.point').html(note)
+
+                    
+                    //validons la copie
+                    
+                        let valid = $('#validation')
+                        // on desactive le bouton 
+                        alert('vous n\'avez pas passer cette etape. \n vous avez eu que '+note)
+                        note = note;  
+                    
+                }
+
+                // gerons la note si la partie est valider
+                if(note == 10){
+                    clearInterval(compteur);
+
+                    //on va enregistrer la progression avant de le faire passer a la prochaine etape
+                    // pour se fait, on va afficher un message et une barre de progression pour le faire patienter le temps qu'on enregistre et charge la prochaine etape
+                   
+                    // on affiche un message
+                    $('#root').html(
+                        '<div class="" pull-right>'+
+                        '<div class="alert alert-success alert-border alert-dismissible fade in" role="alert">'+
+                            '<h2>'+
+                            '<h2> <b> EPREUVE VALIDER</b>: Bravo vous avez valider cette épreuve  </h2>'+
+                                '<button type="button" class="close pull-right" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
+                            '</h2>'+
+                            '<h3>Vous êtes prêt pour la prochaine épreuve</h3>'+
+                            '</p>'+
+                            '</div>'+
+                            '</div>'
+                    ).hide().show('slow');
+
+                    //on retire la copie
+                    $('#root_exo').html(
+                        '<div style="background:black; color:white; opacity:0.9; padding:2%;">'+
+                        '<progress value="0" style="width: 50%;" max="100" id="progress_val"></progress>'+
+                        '&nbsp;&nbsp;<span id="pro"></span> /100%'+
+                        '<br /> <b>chargement...</b>'+
+                        '</div>'
+                    ).hide().show('slow');
+
+                    // gerons la barre de progression pour indiquer le chargement
+                    let temps = 0;
+                    let compter = setInterval(()=>{
+                        let barre = document.getElementById('progress_val');
+                        let max = barre.max;
+                        barre.value = ++temps;
+                        $('#pro').html(temps);
+
+                        // surveillons l'evolution du chargement
+                        if(temps == max){
+                            // on arrete le chargement
+                            clearInterval(compter);
+                            // on redirige maintenant vers la deuxieme epreuve
+
+                            // cree le lien
+                            const path = $('#save_progress').val();
+                            let ni = parseInt(state.niv)
+                            // recuperons l'id de la partie
+                            const partie_id = $('#part_id').val();
+
+                            let links = path + '?lang_id='+id_lang_choisir+'&partie_id='+part_id+'&niv_id='+niv_id;
+                            location.href =links;
+                        }
+
+                    },300);
+
+
+                }
+
+                //gerons le comportement au cas ou la partie n'est pas valide
+                if(note > 10){
+
+                    // on affiche un message
+                    $('#root').html(element3).hide().show('slow');
+
+                    //on retire la copie
+                    $('#root_exo').html('').hide().show('slow');
+
+                    // on stope le temps
+                    clearInterval(compteur);
+                }
+
+                
+
+
+
+
+
+
+
+
              })
             
 

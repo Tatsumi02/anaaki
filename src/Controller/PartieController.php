@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Langages;
+use App\Entity\Progression;
 use App\Entity\Parties;
 use App\Entity\ContenueExo;
 use App\Repository\PartiesRepository;
 use App\Repository\ContenueExoRepository;
+use App\Repository\ProgressionExoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -78,6 +80,7 @@ class PartieController extends AbstractController
     }
 
     /**
+     * controlleur pour charger la premiere epreuve
      * @Route("/lets-go/{id}-tech",name="playing")
      */
     public function playing($id){
@@ -85,13 +88,20 @@ class PartieController extends AbstractController
         $parties = $repository3 -> findOneBy(['id'=>$id]);
 
         $repository3 = $this -> getDoctrine() -> getRepository(Parties::class);
-        $part = $repository3 -> findOneBy(['langage_id'=>$id]);
+        $parts = $repository3 -> findBy(['langage_id'=>$id]);
+        $duree = 0;
+        $part_id = 0;
 
+        foreach($parts as $part){
+            $duree = $part->getDuree();
+            $part_id = $part->getId();
+        }
 
+        
         return $this->render('partie/playing.html.twig',[
             'langage'=>$parties->getNom(),
             'lang_id'=>$id,
-            'duree' => $part->getDuree(),
+            'duree' => $duree,
         ]);
     }
 
@@ -167,6 +177,93 @@ class PartieController extends AbstractController
     
         return new JsonResponse($jsonData);
 }
+
+/**
+ * controlleur d'enregistrement de la progression
+ * @Route("/progress-saver",name="progress_saver")
+ */
+public function progress_saver(Request $request){
+    $lang_id = $request->get('lang_id');
+    $part_id = $request->get('partie_id');
+    $niv_id = $request->get('niv_id');
+
+    $repository3 = $this -> getDoctrine() -> getRepository(Progression::class);
+    $progression = $repository3 -> findBy(['user_id'=>$this->getUser()->getId(),'partie_id'=>$part_id]);
+
+    $estLa = false; // variable pour savoir si lutilisateur est deja enregistrer ou pas 
+
+    foreach($progression as $progress){
+        if($this->getUser()->getId() == $progress->getUserId()){
+            $estLa = true;
+        }
+    }
+
+    // si il n'est pas encore enregistrer
+    if($estLa == false){
+        // on l'enregistre
+        $progression = new Progression();
+        $progression->setLangageId($lang_id);
+        $progression->setPartieId($part_id);
+        $progression->setNiveauId($niv_id);
+        $progression->setUserId($this->getUser()->getId());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($progression);
+        $em->flush();
+
+        
+
+    }
+
+    if($estLa == true){
+
+        foreach($progression as $prog){
+
+        
+        $em = $this->getDoctrine()->getManager();
+        $prog->setLangageId($lang_id);
+        $prog->setPartieId($part_id);
+        $prog->setNiveauId($niv_id);
+        $prog->setUserId($this->getUser()->getId());
+
+        $em->flush();
+
+        }
+        
+    }
+
+    // on redirige vers le controlleur qui se charge de charger les parties
+    return $this->redirectToRoute('loader_play',['lang_id'=>$lang_id,'part_id'=>$part_id]);
+
+}
+
+/**
+ * cette methode permet de charger les partie en fonction du lieu ou le joueur s'est arreter
+ *@Route("/loader-play/{lang_id}/{part_id}", name="loader_play")
+ */
+ public function loader_play($lang_id,$part_id){
+   
+    return new Response('Chargement de la 2eme epreuve...');
+ }
+
+/**
+* methode pour charger la seconde partie
+* @Route("/lets-go/{id}-tech",name="playing")
+*/
+    public function playing2($id){
+        $repository3 = $this -> getDoctrine() -> getRepository(Langages::class);
+        $parties = $repository3 -> findOneBy(['id'=>$id]);
+
+        $repository3 = $this -> getDoctrine() -> getRepository(Parties::class);
+        $part = $repository3 -> findOneBy(['langage_id'=>$id]);
+
+
+        return $this->render('partie/playing.html.twig',[
+            'langage'=>$parties->getNom(),
+            'lang_id'=>$id,
+            'duree' => $part->getDuree(),
+        ]);
+    }
 
 
 
